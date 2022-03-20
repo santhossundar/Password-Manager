@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background-color: rgb(56, 134, 160);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 696px) {  
+  .container {
+    width: 50%;
+  }
+}
+
+.encryption {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(176, 199, 199, 0.5);
+  width: 60%;
+  border-radius: 10px;
+}
+
+.enIn {
+  height: 30px;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 20px 20px 0 20px;
+  border: none;
+}
+
+.enBtn {
+  cursor: pointer;
+  margin: 20px 20px 20px 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
+
+.enBtn:hover {
+  background-color: azure;
+  transition: 0.7s;
+}
+
+.nav {
+  display: flex;
+  background-color: rgb(176, 199, 199, 0.5);
+  border-radius: 10px;
+  width: 30%;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;  
+  margin-top: 20px; 
+}
+
+.nav:hover {
+  background-color: azure;
+  transition: 0.7s;
+}
+
+a {
+  text-decoration: none; 
+  color: rgb(22, 22, 24);
+}
+
+a:hover {
+  color: rgb(23, 23, 119);
+}
