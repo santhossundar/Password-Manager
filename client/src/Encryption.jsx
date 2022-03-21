@@ -14,18 +14,18 @@ function Encryption() {
     
     };
     return (
-        <>
-            <div className="nav">
-                <Link to="decryption">Decryption</Link>
-            </div>
-
+        <div className='container'>
             <div className='encryption'>
                 <input className='enIn' type='text' placeholder='account' onChange={(event) => {setAccount(event.target.value)}}/>
                 <input className='enIn' type='text' placeholder='password' onChange={(event) => {setPassword(event.target.value)}}/>  
                 <button className='enBtn' onClick={addPassword}>Save</button>
             </div>
+
+            <div className="nav">
+                <Link to="decryption"><p>Decryption</p></Link>
+            </div>
         
-        </>
+        </div>
         
     )
 }

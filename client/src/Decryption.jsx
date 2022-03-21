@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom'
 
 function Decryption() {
     return (
-        <>  
-            <div className="nav">
-                <Link to="/">Encryption</Link>
-            </div>
-
+        <div className='container'>
             <div className="decryption">
                 
             </div>
-            
-        </>
+
+            <div className="nav">
+                <Link to="/"><p>Encryption</p></Link>
+            </div>   
+        </div>
     )
 }
 
