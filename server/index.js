@@ -5,7 +5,6 @@ const cors = require('cors');
 const { encrypt, decrypt } = require('./encrypter');
 
 const app =  express();
-
 const port = 3001;
 
 app.use(cors());
@@ -27,8 +26,8 @@ db.connect((err) => {
 });
 
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE IF NOT EXISTS passwords';
-    db.query(sql, (err, result) => {
+    let query = 'CREATE DATABASE IF NOT EXISTS passwords';
+    db.query(query, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Database created...');
@@ -36,8 +35,8 @@ app.get('/createdb', (req, res) => {
 });
 
 app.get('/createtable', (req, res) => {
-    let sql = 'CREATE TABLE IF NOT EXISTS mytable(password VARCHAR(255), title VARCHAR(255), iv VARCHAR(255))';
-    db.query(sql, (err, result) => {
+    let query = 'CREATE TABLE IF NOT EXISTS mytable(password VARCHAR(255), title VARCHAR(255), iv VARCHAR(255))';
+    db.query(query, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('table created...');
@@ -46,30 +45,42 @@ app.get('/createtable', (req, res) => {
 
 app.post('/addpassword', (req, res) => {
      const {account, password} = req.body;
+     const passwd = encrypt(password);
 
-     const hashedPassword = encrypt(password);
-
-     db.query("INSERT INTO mytable (password, title, iv) VALUES (?,?,?)",
-     [hashedPassword.password, account, hashedPassword.iv],
-     (err, result) => {
-         if(err) {
-             console.log(err);
-         }else{
-             res.send("success");
-         }
-     });
+    let query = `INSERT INTO mytable (data, account) VALUES ('${passwd}','${account}')`;
+    db.query(query, (err, result) => {
+        if(err) {
+            console.log(err);
+        }else{
+            res.send("data added...");
+        }
+    });
 });
 
 app.get('/getall', (req, res) => {
-    let sql = 'SELECT password, title FROM mytable';
-    db.query(sql, (err, result) => {
+    let query = 'SELECT id, data, account FROM mytable';
+    db.query(query, (err, result) => {
         if (err) throw err;
-        console.log(result);
         res.send(result);
     });
 });
 
+app.post('/delete', (req, res) => {
+    const id = req.body;
+    let query = `DELETE FROM mytable where id=${id.id}`;
+    db.query(query, (err, result) => {
+        if (err) throw err;
+        res.send('data deleted...');
+    })
+})
+
+app.post('/decrypt', (req, res) => {
+    const passwd = decrypt(req.body);
+    res.send(passwd);
+    
+})
+
 app.listen(port, () => {
-    console.log("server is running");
+    console.log("server is running...");
 });
 

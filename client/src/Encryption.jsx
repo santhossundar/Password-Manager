@@ -9,9 +9,7 @@ function Encryption() {
   
 
     const addPassword = () => {
-        Axios.post('http://localhost:3001/addpassword', 
-        {account: account, password: password});
-    
+        Axios.post('http://localhost:3001/addpassword', {account: account, password: password});
     };
     return (
         <div className='container'>
