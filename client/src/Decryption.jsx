@@ -23,8 +23,8 @@ function Decryption() {
         setModal(!modal);
     }
 
-    const decryptPassword = (pass) => {
-        Axios.post('http://localhost:3001/decrypt', {obj:pass})
+    const decryptPassword = (passwd) => {
+        Axios.post('http://localhost:3001/decrypt', {passwd:passwd})
         .then(res => {
                 setPasswd(res.data);
         }

@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 
-const { encrypt, decrypt } = require('./encrypter');
+const { encrypt, decrypt } = require('./encryptDecrypt');
 
 const app =  express();
 const port = 3001;
@@ -24,6 +24,25 @@ db.connect((err) => {
     }
     console.log('MySql Connected...');
 });
+
+app.post('/login', (req, res) => {
+    const passwd = req.body;
+    let query = 'SELECT passwd FROM user';
+
+    db.query(query, (err, result) => {
+        if (err) throw err;
+        const decryptPasswd = decrypt({passwd: result[0].passwd});
+        console.log(decryptPasswd);
+        if (passwd.passwd === decryptPasswd) {
+            res.send();
+            console.log('succeed...');
+
+        } else {
+            console.log('login failed...');
+        }
+    })
+
+})
 
 app.get('/createdb', (req, res) => {
     let query = 'CREATE DATABASE IF NOT EXISTS passwords';
