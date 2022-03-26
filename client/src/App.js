@@ -1,18 +1,23 @@
-import {Routes, Route} from 'react-router-dom'
+import './App.css';
+import Encryption from './Encryption';
+import Decryption from './Decryption';
 import Login from './Login'
-import Encryption from './Encryption'
-import Decryption from './Decryption'
-import './App.css'
+import Protected from './Protected';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './Context'
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
+      <div className="App">
       <Routes>
-        <Route path="/" element={ <Login/> } />
-        <Route path="encryption" element={ <Encryption/> } />
-        <Route path="decryption" element={ <Decryption/> } />
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/' element={<Protected><Encryption/></Protected>}/>
+        <Route path='/decryption' element={<Protected><Decryption/></Protected>}/> 
       </Routes>
     </div>
+    </AuthProvider>
+    
   )
 }
 

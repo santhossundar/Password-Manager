@@ -32,12 +32,12 @@ app.post('/login', (req, res) => {
     db.query(query, (err, result) => {
         if (err) throw err;
         const decryptPasswd = decrypt({passwd: result[0].passwd});
-        console.log(decryptPasswd);
         if (passwd.passwd === decryptPasswd) {
-            res.send();
+            res.send(true);
             console.log('succeed...');
 
         } else {
+            res.send(false);
             console.log('login failed...');
         }
     })
